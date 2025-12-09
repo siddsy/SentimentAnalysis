@@ -1,118 +1,33 @@
-Sentiment Analysis with VADER and RoBERTa
-This repository contains a single Jupyter notebook that demonstrates sentiment analysis using both a classic lexicon‑based method (VADER) and a modern transformer‑based model (RoBERTa) on Amazon review data.
+# Sentiment Analysis with VADER and RoBERTa
 
-Features
-End‑to‑end sentiment analysis in one notebook.
+This repository contains a single Jupyter notebook, `sentimentanalysis.ipynb`, that performs sentiment analysis on Amazon product reviews using two approaches: a lexicon‑based model (VADER) and a transformer‑based model (RoBERTa). It includes basic exploratory data analysis, runs both models on the same set of reviews, and compares their sentiment predictions with the original star ratings.
 
-VADER (Valence Aware Dictionary and sEntiment Reasoner) for fast, rule‑based sentiment scoring.
+## Features
 
-RoBERTa (via Hugging Face Transformers) for deep‑learning‑based sentiment classification.
+- Uses VADER for fast, rule‑based sentiment scoring.
+- Uses a pretrained RoBERTa model from Hugging Face for deep learning sentiment classification.
+- Works on a subset of the Amazon Fine Food Reviews dataset.
+- Provides simple visualizations and comparisons between model scores and review ratings.
 
-Exploratory data analysis (EDA) of ratings and review text.
+## Files
 
-Side‑by‑side comparison of VADER and RoBERTa outputs.
+- `sentimentanalysis.ipynb` – main notebook with all analysis.
+- `README.md` – this project description.
 
-Project Structure
-text
-.
-├── sentimentanalysis.ipynb   # Main analysis notebook
-└── README.md                 # Project documentation (this file)
-You can optionally add:
+## Setup
 
-text
-data/
-  Reviews.csv                 # Amazon Fine Food Reviews subset (if stored locally)
-requirements.txt              # Python dependencies
-Data
-The notebook uses a subset of the Amazon Fine Food Reviews dataset, which includes fields such as:
+1. Create and activate a Python environment.
+2. Install required libraries (for example: `pandas`, `numpy`, `matplotlib`, `seaborn`, `nltk`, `transformers`, `scipy`, `torch`, `jupyter`).
+3. Ensure the Amazon reviews CSV is available and update the file path in the notebook if needed.
 
-Score – 1–5 star rating
+## Usage
 
-Summary – short review title
+1. Launch Jupyter Notebook.
+2. Open `sentimentanalysis.ipynb`.
+3. Run the cells from top to bottom to load the data, compute VADER and RoBERTa scores, and view the plots and comparisons.
 
-Text – full review content
-
-The notebook reads the CSV from a path you can adapt to your environment (e.g. Kaggle input path or a local data/Reviews.csv).
-
-Methods
-VADER
-
-Uses NLTK’s SentimentIntensityAnalyzer.
-
-Produces four scores per review: neg, neu, pos, compound.
-
-Merges scores back into the original DataFrame and visualizes how they relate to star ratings.
-
-RoBERTa
-
-Uses a pretrained RoBERTa sentiment model from Hugging Face (e.g. cardiffnlp/twitter-roberta-base-sentiment).
-
-Tokenizes each review, runs it through the model, and extracts probabilities for negative, neutral, and positive sentiment.
-
-Stores probabilities in new columns and compares them to VADER scores and star ratings.
-
-Comparison
-
-The notebook includes plots and tables to:
-
-Inspect rating distributions.
-
-Inspect the distribution of VADER compound scores.
-
-Compare VADER and RoBERTa behaviour across different star levels.
-
-Requirements
-Create a requirements.txt similar to:
-
-text
-pandas
-numpy
-matplotlib
-seaborn
-nltk
-transformers
-tqdm
-scipy
-jupyter
-Install with:
-
-bash
-pip install -r requirements.txt
-Inside the notebook, ensure the VADER lexicon is available:
-
-python
-import nltk
-nltk.download("vader_lexicon")
-How to Run
-Clone the repository
-
-bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
-Install dependencies
-
-bash
-pip install -r requirements.txt
-Add the data
-
-Option A (local): Place Reviews.csv under data/ and update the path in the notebook.
-
-Option B (Kaggle): Attach the dataset as an input and keep the existing path.
-
-Start Jupyter
-
-bash
-jupyter notebook
-Open and run
-
-Open sentimentanalysis.ipynb and run cells from top to bottom.
-
-Possible Extensions
-Swap in a different Hugging Face sentiment model.
-
-Run on a larger subset or the full dataset and log results to CSV.
-
-Add evaluation metrics (accuracy, F1) against the star labels.
-
-Wrap the models into a small API or Streamlit/Gradio demo.
-
+## Conclusion
+![VADER vs RoBERTa pairplot](vader_roberta_pairplot.png)
+- Both VADER and RoBERTa scores generally align with the Amazon star ratings: high‑star reviews cluster with low negative and high positive scores, while low‑star reviews show the opposite pattern.  
+- RoBERTa produces more sharply separated negative/neutral/positive regions, suggesting it is more confident and discriminative than VADER, whose scores spread more widely and overlap between classes.  
+- Overall, both methods capture sentiment direction reasonably well, but RoBERTa appears better suited when stronger separation between sentiment classes is required.
